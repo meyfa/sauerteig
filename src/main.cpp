@@ -1,9 +1,13 @@
 #include <Arduino.h>
 
+#include "lcd.h"
+
 void setup() {
-  // put your setup code here, to run once:
+    lcd_init();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+    lcd_draw();
+
+    delay(50);
 }
