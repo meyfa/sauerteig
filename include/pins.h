@@ -12,8 +12,8 @@ typedef int8_t pin_t;
 
 // TEMPERATURE SENSORS
 #define TEMP_0_PIN                          13  // Analog Input
-#define TEMP_1_PIN                          15  // Analog Input
-#define TEMP_BED_PIN                        14  // Analog Input
+#define TEMP_1_PIN                          14  // Analog Input
+#define TEMP_2_PIN                          15  // Analog Input
 
 // HEATERS / FANS
 #define RAMPS_D8_PIN                         8
