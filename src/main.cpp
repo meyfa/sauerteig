@@ -18,6 +18,10 @@ void setup()
     buzzer_init();
 
     lcd_init();
+
+    heating_init();
+
+    set_heater_enabled(true);
 }
 
 void loop()
@@ -37,8 +41,12 @@ void loop()
     }
 
     // button test
-    board_led_toggle(rotary_encoder_get_button());
-    buzzer_toggle(rotary_encoder_get_button());
+    // board_led_toggle(rotary_encoder_get_button());
+    // buzzer_toggle(rotary_encoder_get_button());
+
+    // heater
+    heating_update();
+    board_led_toggle(get_heater_active());
 
     // LCD update
     static unsigned long lastLcdDraw = 0;
