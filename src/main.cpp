@@ -41,7 +41,7 @@ void loop()
     buzzer_toggle(rotary_encoder_get_button());
 
     // LCD update
-    static unsigned long lastLcdDraw = millis();
+    static unsigned long lastLcdDraw = 0;
     unsigned long now = millis();
     if (now > lastLcdDraw + 500)
     {

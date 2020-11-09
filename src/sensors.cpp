@@ -2,10 +2,11 @@
 
 #include "sensors.h"
 #include "pins.h"
+#include "average_buffer.h"
 
-const float UPDATE_SPEED = 0.01f;
+const int OVERSAMPLE = 128;
 
-float temperatures[SENSOR_COUNT] = {0};
+AverageBuffer<100> buffers[SENSOR_COUNT];
 
 typedef struct
 {
@@ -81,7 +82,13 @@ static float convert_temperature(int raw)
 static int readSensor(int index)
 {
     pin_t pin = index == 1 ? TEMP_1_PIN : (index == 2 ? TEMP_2_PIN : TEMP_0_PIN);
-    return analogRead(pin);
+
+    long samples = 0;
+    for (int i = 0; i < OVERSAMPLE; ++i)
+    {
+        samples += analogRead(pin);
+    }
+    return samples / OVERSAMPLE;
 }
 
 void sensors_init()
@@ -90,14 +97,22 @@ void sensors_init()
 
 void sensors_update()
 {
+    static unsigned long lastRead = 0;
+    unsigned long now = millis();
+    if (now < lastRead + 20)
+    {
+        return;
+    }
+    lastRead = now;
+
     for (size_t i = 0; i < SENSOR_COUNT; ++i)
     {
         float read = convert_temperature(readSensor(i));
-        temperatures[i] = temperatures[i] + UPDATE_SPEED * (read - temperatures[i]);
+        buffers[i].push(read);
     }
 }
 
 float sensors_get_temperature(int sensor)
 {
-    return temperatures[sensor];
+    return buffers[sensor].average();
 }
