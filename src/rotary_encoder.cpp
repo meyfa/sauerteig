@@ -9,10 +9,10 @@ const signed short ENCODER_DIRECTION = -1;
 
 struct
 {
-    bool en1, en2, enc;
+    volatile bool en1, en2, enc;
 } buttons;
 
-int wheelPosition = 0;
+volatile int wheelPosition = 0;
 
 static int to_phase(bool a, bool b)
 {
