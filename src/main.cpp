@@ -1,6 +1,5 @@
 #include <Arduino.h>
 
-#include "pins.h"
 #include "sensors.h"
 #include "board_led.h"
 #include "buzzer.h"
@@ -8,8 +7,7 @@
 #include "lcd.h"
 #include "heating.h"
 #include "fan.h"
-
-const float DEGREES_PER_ENCODER_STEP = 0.5f;
+#include "ui.h"
 
 void setup()
 {
@@ -25,6 +23,8 @@ void setup()
     set_heater_enabled(true);
 
     fan_init();
+
+    ui_init();
 
     // rotary encoder timer interrupt
     // set timer4 interrupt at 248 Hz (should be enough for the rotary encoder)
@@ -49,19 +49,8 @@ void loop()
     // polling
     sensors_update();
 
-    // handle encoder temperature change
-    static long lastEncoderPos = 0;
-    long encoderPos = rotary_encoder_get_wheel();
-    if (encoderPos != lastEncoderPos)
-    {
-        int diff = (int)(encoderPos - lastEncoderPos);
-        set_target_temperature(get_target_temperature() + DEGREES_PER_ENCODER_STEP * diff);
-        lastEncoderPos = encoderPos;
-    }
-
-    // button test
-    // board_led_toggle(rotary_encoder_get_button());
-    // buzzer_toggle(rotary_encoder_get_button());
+    // ui
+    ui_update();
 
     // heater
     heating_update();
@@ -72,7 +61,7 @@ void loop()
     unsigned long now = millis();
     if (now > lastLcdDraw + 250)
     {
-        lcd_draw();
+        lcd_draw(ui_draw);
         lastLcdDraw = now;
     }
 }

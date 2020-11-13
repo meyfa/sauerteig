@@ -34,7 +34,7 @@ void fan_set_speed(int speed)
 {
     currentSpeed = constrain(speed, 0, 255);
 
-    if (speed == 0)
+    if (currentSpeed == 0)
     {
         // toggle COM2B1 off
         TCCR2A &= ~_BV(COM2B1);
