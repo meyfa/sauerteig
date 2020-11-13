@@ -7,13 +7,14 @@ enum ScreenType
     NO_CHANGE,
 
     MAIN,
+    MENU,
     FANCONTROL,
 };
 
 class Screen
 {
 public:
-    virtual ~Screen() {};
+    virtual ~Screen(){};
 
     virtual void draw(U8GLIB &u8g) = 0;
 

@@ -2,10 +2,10 @@
 
 #include "screen.h"
 
-class FanControlScreen : public Screen
+class MenuScreen : public Screen
 {
 public:
-    ~FanControlScreen() override{};
+    ~MenuScreen() override{};
 
     void draw(U8GLIB &u8g) override;
 

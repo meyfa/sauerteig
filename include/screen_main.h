@@ -5,7 +5,7 @@
 class MainScreen : public Screen
 {
 public:
-    ~MainScreen() override {};
+    ~MainScreen() override{};
 
     void draw(U8GLIB &u8g) override;
 

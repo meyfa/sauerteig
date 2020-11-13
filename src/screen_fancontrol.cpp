@@ -18,7 +18,7 @@ void FanControlScreen::draw(U8GLIB &u8g)
 
 ScreenType FanControlScreen::handleClick()
 {
-    return MAIN;
+    return MENU;
 }
 
 void FanControlScreen::handleScroll(int steps)

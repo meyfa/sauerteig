@@ -47,7 +47,7 @@ void MainScreen::draw(U8GLIB &u8g)
 
 ScreenType MainScreen::handleClick()
 {
-    return FANCONTROL;
+    return MENU;
 }
 
 void MainScreen::handleScroll(int steps)
