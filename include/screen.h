@@ -8,6 +8,7 @@ enum ScreenType
 
     MAIN,
     MENU,
+    TARGET_SENSOR,
     FANCONTROL,
 };
 

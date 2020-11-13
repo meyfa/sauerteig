@@ -4,6 +4,8 @@
 #include "pins.h"
 #include "average_buffer.h"
 
+const char* SENSOR_LABELS[] = { "Bed", "Case 1", "Case 2" };
+
 const int OVERSAMPLE = 128;
 
 AverageBuffer<100> buffers[SENSOR_COUNT];

@@ -21,6 +21,7 @@ typedef struct
 
 const MenuItem ITEMS[] = {
     {.label = "< Back", .action = nullptr, .next = MAIN},
+    {.label = "    Target Sensor Select", .action = nullptr, .next = TARGET_SENSOR},
     {.label = "    Fan Speed", .action = nullptr, .next = FANCONTROL},
     {.label = "    Buzzer Test (LOUD)", .action = testBuzzer, .next = NO_CHANGE},
 };
@@ -35,10 +36,10 @@ void MenuScreen::draw(U8GLIB &u8g)
     {
         if (i == selectedItem)
         {
-            u8g.drawLine(0, i * 14, 127, i * 14);
-            u8g.drawLine(0, i * 14 + 12, 127, i * 14 + 12);
+            u8g.drawLine(0, i * 13, 127, i * 13);
+            u8g.drawLine(0, i * 13 + 12, 127, i * 13 + 12);
         }
-        u8g.drawStr(8, i * 14 + 10, ITEMS[i].label);
+        u8g.drawStr(8, i * 13 + 10, ITEMS[i].label);
     }
 }
 

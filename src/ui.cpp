@@ -3,6 +3,7 @@
 
 #include "screen_main.h"
 #include "screen_menu.h"
+#include "screen_targetsensor.h"
 #include "screen_fancontrol.h"
 
 Screen *currentScreen;
@@ -18,6 +19,9 @@ static void switchScreen(ScreenType type)
         break;
     case MENU:
         newScreen = new MenuScreen();
+        break;
+    case TARGET_SENSOR:
+        newScreen = new TargetSensorScreen();
         break;
     case FANCONTROL:
         newScreen = new FanControlScreen();
