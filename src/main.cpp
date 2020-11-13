@@ -1,11 +1,13 @@
 #include <Arduino.h>
 
+#include "pins.h"
 #include "sensors.h"
 #include "board_led.h"
 #include "buzzer.h"
 #include "rotary_encoder.h"
 #include "lcd.h"
 #include "heating.h"
+#include "fan.h"
 
 const float DEGREES_PER_ENCODER_STEP = 0.5f;
 
@@ -20,23 +22,25 @@ void setup()
     lcd_init();
 
     heating_init();
-
     set_heater_enabled(true);
 
+    fan_init();
+
     // rotary encoder timer interrupt
+    // set timer4 interrupt at 248 Hz (should be enough for the rotary encoder)
 
     cli();
-    // set timer4 interrupt at 248 Hz (should be enough for the rotary encoder)
     TCCR4A = 0;
     TCCR4B = 0;
+    // reset counter value
     TCNT4 = 0;
+    // WGM42: CTC mode (counter resets after reaching OCR4A),
+    // CS42+CS40: prescaler = 1024
+    TCCR4B = _BV(WGM42) | _BV(CS42) | _BV(CS40);
+    // set counter limit
     OCR4A = 15624 / 248; // = (16 * 10^6 / 1024 - 1) / 248
-    // turn on CTC mode
-    TCCR4B |= (1 << WGM12);
-    // Set CS12 and CS10 bits for 1024 prescaler
-    TCCR4B |= (1 << CS12) | (1 << CS10);
     // enable timer compare interrupt
-    TIMSK4 |= (1 << OCIE4A);
+    TIMSK4 |= _BV(OCIE4A);
     sei();
 }
 
