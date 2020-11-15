@@ -12,6 +12,9 @@
 
 void setup()
 {
+    // allow for voltage stabilisation
+    delay(250);
+
     rotary_encoder_init();
     enable_button_init();
     board_led_init();
