@@ -4,6 +4,7 @@
 #include "board_led.h"
 #include "buzzer.h"
 #include "rotary_encoder.h"
+#include "enable_button.h"
 #include "lcd.h"
 #include "heating.h"
 #include "fan.h"
@@ -11,19 +12,16 @@
 
 void setup()
 {
-    sensors_init();
     rotary_encoder_init();
-
+    enable_button_init();
     board_led_init();
     buzzer_init();
 
-    lcd_init();
-
+    sensors_init();
     heating_init();
-    set_heater_enabled(true);
-
     fan_init();
 
+    lcd_init();
     ui_init();
 
     // rotary encoder timer interrupt
@@ -52,9 +50,18 @@ void loop()
     // ui
     ui_update();
 
-    // heater
+    // heater enable
+    static bool lastEnableButton = false;
+    bool enableButton = enable_button_pressed();
+    if (lastEnableButton && !enableButton)
+    {
+        set_heater_enabled(!get_heater_enabled());
+        board_led_toggle(get_heater_enabled());
+    }
+    lastEnableButton = enableButton;
+
+    // heater update
     heating_update();
-    board_led_toggle(get_heater_active());
 
     // LCD update
     static unsigned long lastLcdDraw = 0;

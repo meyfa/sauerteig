@@ -25,6 +25,7 @@ exact components I used.
 
 - LCD for viewing sensors and heating status
 - Target temperature set via rotary encoder
+- Enable/Disable heating via LCD module button
 - On-screen menu for advanced settings:
     - Selection of thermistor to use for targeting
     - Fan control (for air circulation inside the case)
