@@ -4,7 +4,7 @@
 #include "pins.h"
 #include "average_buffer.h"
 
-const char* SENSOR_LABELS[] = { "Bed", "Air1", "Air2" };
+const char *SENSOR_LABELS[] = {"Bed", "Air1", "Air2"};
 
 const int OVERSAMPLE = 128;
 
@@ -117,4 +117,28 @@ void sensors_update()
 float sensors_get_temperature(int sensor)
 {
     return buffers[sensor].average();
+}
+
+bool sensors_any_below(float min)
+{
+    for (size_t i = 0; i < SENSOR_COUNT; ++i)
+    {
+        if (sensors_get_temperature(i) < min)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool sensors_any_above(float max)
+{
+    for (size_t i = 0; i < SENSOR_COUNT; ++i)
+    {
+        if (sensors_get_temperature(i) > max)
+        {
+            return true;
+        }
+    }
+    return false;
 }

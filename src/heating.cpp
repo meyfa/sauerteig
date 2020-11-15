@@ -6,6 +6,7 @@
 
 int targetSensor = SET_SENSOR_DEFAULT;
 float targetTemperature = SET_TEMP_DEFAULT;
+float cutoffTemperature = SET_TEMP_MAX;
 bool enabled = false;
 bool active = false;
 
@@ -27,6 +28,16 @@ float get_target_temperature()
 void set_target_temperature(float temp)
 {
     targetTemperature = constrain(temp, SET_TEMP_MIN, SET_TEMP_MAX);
+}
+
+float get_cutoff_temperature()
+{
+    return cutoffTemperature;
+}
+
+void set_cutoff_temperature(float temp)
+{
+    cutoffTemperature = constrain(temp, SET_TEMP_MIN, SET_TEMP_MAX);
 }
 
 bool get_heater_enabled()
@@ -53,8 +64,12 @@ void heating_update()
         return;
     }
 
+    float cutoff = min(SET_TEMP_MAX, cutoffTemperature);
     float temp = sensors_get_temperature(targetSensor);
-    active = enabled && temp < targetTemperature;
+
+    bool allInRange = !sensors_any_below(MIN_SENSOR_TEMP) && !sensors_any_above(cutoff);
+    active = enabled && temp < targetTemperature && allInRange;
+
     digitalWrite(HEATER_BED_PIN, active ? HIGH : LOW);
 }
 

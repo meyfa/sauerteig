@@ -12,7 +12,11 @@ void set_target_sensor(int sensor);
 
 float get_target_temperature();
 
-void set_target_temperature(float degrees);
+void set_target_temperature(float temp);
+
+float get_cutoff_temperature();
+
+void set_cutoff_temperature(float temp);
 
 bool get_heater_enabled();
 

@@ -29,6 +29,7 @@ exact components I used.
 - On-screen menu for advanced settings:
     - Selection of thermistor to use for targeting
     - Fan control (for air circulation inside the case)
+    - Heating element soft cutoff limit
     - Buzzer test
 - Reliable temperature measurements with noise suppression
 

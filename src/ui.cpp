@@ -5,6 +5,7 @@
 #include "screen_menu.h"
 #include "screen_targetsensor.h"
 #include "screen_fancontrol.h"
+#include "screen_cutoff_set.h"
 
 Screen *currentScreen;
 
@@ -25,6 +26,9 @@ static void switchScreen(ScreenType type)
         break;
     case FANCONTROL:
         newScreen = new FanControlScreen();
+        break;
+    case CUTOFF_SET:
+        newScreen = new CutoffSetScreen();
         break;
     default:
         return;

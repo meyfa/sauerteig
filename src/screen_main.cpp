@@ -5,7 +5,7 @@
 
 const float DEGREES_PER_SCROLL_STEP = 0.5f;
 
-const uint8_t BITMAP_CNT = 2; // number of bytes in h direction
+const uint8_t BITMAP_CNT = 2;   // number of bytes in h direction
 const uint8_t BITMAP_SIZE = 12; // width and height in pixels
 
 const uint8_t FAN_BITMAP[] = {
@@ -38,9 +38,9 @@ const uint8_t HEATER_BITMAP[] = {
     0b11111111, 0b11110000,
 };
 
-const char* HEATER_OFF = "Off";
-const char* HEATER_IDLE = "Idle";
-const char* HEATER_HEATING = "Heating";
+const char *HEATER_OFF = "Off";
+const char *HEATER_IDLE = "Idle";
+const char *HEATER_HEATING = "Heating";
 
 void MainScreen::draw(U8GLIB &u8g)
 {
@@ -50,7 +50,7 @@ void MainScreen::draw(U8GLIB &u8g)
     bool heaterActive = get_heater_active();
     int fanPercentage = fan_get_speed() * 100 / 255;
 
-    u8g.drawFrame(0, 0, 84, 20); // top left
+    u8g.drawFrame(0, 0, 84, 20);  // top left
     u8g.drawFrame(0, 19, 84, 45); // bottom left
     u8g.drawFrame(83, 0, 44, 64); // right
 
@@ -60,9 +60,9 @@ void MainScreen::draw(U8GLIB &u8g)
     u8g.print(" \260C");
 
     u8g.drawBitmap(99, 5, BITMAP_CNT, BITMAP_SIZE, HEATER_BITMAP);
-    const char* heaterString = heaterEnabled
-        ? (heaterActive ? HEATER_HEATING : HEATER_IDLE)
-        : HEATER_OFF;
+    const char *heaterString = heaterEnabled
+                                   ? (heaterActive ? HEATER_HEATING : HEATER_IDLE)
+                                   : HEATER_OFF;
     u8g.setPrintPos(83 + (44 - u8g.getStrWidth(heaterString)) / 2, 28);
     u8g.print(heaterString);
 

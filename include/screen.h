@@ -10,6 +10,7 @@ enum ScreenType
     MENU,
     TARGET_SENSOR,
     FANCONTROL,
+    CUTOFF_SET,
 };
 
 class Screen
