@@ -47,11 +47,19 @@ void setup()
 
 void loop()
 {
-    // polling
+    // polling and safety check
     sensors_update();
-
-    // ui
-    ui_update();
+    static bool alarm = false;
+    if (sensors_any_below(MIN_SENSOR_TEMP) || sensors_any_above(ALARM_TEMP))
+    {
+        buzzer_toggle(true);
+        alarm = true;
+    }
+    else if (alarm)
+    {
+        buzzer_toggle(false);
+        alarm = false;
+    }
 
     // heater enable
     static bool lastEnableButton = false;
@@ -65,6 +73,9 @@ void loop()
 
     // heater update
     heating_update();
+
+    // ui
+    ui_update();
 
     // LCD update
     static unsigned long lastLcdDraw = 0;

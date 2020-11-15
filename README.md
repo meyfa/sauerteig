@@ -10,6 +10,9 @@ cannot vouch for the quality of the hardware used, and neither for the safety
 of my code. It will probably not even work right with anything other than the
 exact components I used.
 
+That said, the project does incorporate a few safeguards and works remarkably
+well for me so far.
+
 ## Parts List
 
 - 1x Arduino Mega 2560
@@ -32,6 +35,10 @@ exact components I used.
     - Heating element soft cutoff limit
     - Buzzer test
 - Reliable temperature measurements with noise suppression
+- Safeguards:
+    - Missing thermistor detection
+    - Hard heater cutoff limit
+    - Audible warnings via buzzer in case of continued temperature rise
 
 ## How to Install
 
