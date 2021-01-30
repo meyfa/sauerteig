@@ -1,11 +1,9 @@
 #include <Arduino.h>
 
+#include "configuration.h"
 #include "rotary_encoder.h"
 #include "pins.h"
 #include "util.h"
-
-// Direction: -1 means direction is inverted
-const signed short ENCODER_DIRECTION = -1;
 
 struct
 {

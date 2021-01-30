@@ -1,12 +1,13 @@
 #include <Arduino.h>
 
+#include "configuration.h"
 #include "screen_menu.h"
 #include "buzzer.h"
 
 static void testBuzzer()
 {
     buzzer_toggle(true);
-    delay(500);
+    delay(BUZZER_TEST_DURATION);
     buzzer_toggle(false);
 }
 

@@ -1,12 +1,13 @@
 #include <Arduino.h>
 
+#include "configuration.h"
 #include "heating.h"
 #include "sensors.h"
 #include "pins.h"
 
 int targetSensor = SET_SENSOR_DEFAULT;
 float targetTemperature = SET_TEMP_DEFAULT;
-float cutoffTemperature = SET_TEMP_MAX;
+float cutoffTemperature = CUTOFF_TEMP_DEFAULT;
 bool enabled = false;
 bool active = false;
 

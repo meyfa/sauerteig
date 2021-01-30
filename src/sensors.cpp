@@ -1,14 +1,13 @@
 #include <Arduino.h>
 
+#include "configuration.h"
 #include "sensors.h"
 #include "pins.h"
 #include "average_buffer.h"
 
-const char *SENSOR_LABELS[] = {"Bed", "Air1", "Air2"};
+const char *SENSOR_LABELS[] = {SENSOR_LABEL_0, SENSOR_LABEL_1, SENSOR_LABEL_2};
 
-const int OVERSAMPLE = 128;
-
-AverageBuffer<100> buffers[SENSOR_COUNT];
+AverageBuffer<SENSOR_BUFFER_SIZE> buffers[SENSOR_COUNT];
 
 typedef struct
 {
@@ -86,11 +85,11 @@ static int readSensor(int index)
     pin_t pin = index == 1 ? TEMP_1_PIN : (index == 2 ? TEMP_2_PIN : TEMP_0_PIN);
 
     long samples = 0;
-    for (int i = 0; i < OVERSAMPLE; ++i)
+    for (int i = 0; i < SENSOR_OVERSAMPLING; ++i)
     {
         samples += analogRead(pin);
     }
-    return samples / OVERSAMPLE;
+    return samples / SENSOR_OVERSAMPLING;
 }
 
 void sensors_init()

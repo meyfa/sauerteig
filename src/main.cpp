@@ -1,5 +1,6 @@
 #include <Arduino.h>
 
+#include "configuration.h"
 #include "sensors.h"
 #include "board_led.h"
 #include "buzzer.h"
@@ -13,7 +14,7 @@
 void setup()
 {
     // allow for voltage stabilisation
-    delay(250);
+    delay(POWERUP_DELAY);
 
     rotary_encoder_init();
     enable_button_init();
