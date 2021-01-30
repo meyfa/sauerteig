@@ -68,7 +68,7 @@ void heating_update()
     float cutoff = min(SET_TEMP_MAX, cutoffTemperature);
     float temp = sensors_get_temperature(targetSensor);
 
-    bool allInRange = !sensors_any_below(MIN_SENSOR_TEMP) && !sensors_any_above(cutoff);
+    bool allInRange = !sensors_any_below(SENSOR_MINTEMP) && !sensors_any_above(cutoff);
     active = enabled && temp < targetTemperature && allInRange;
 
     digitalWrite(HEATER_BED_PIN, active ? HIGH : LOW);

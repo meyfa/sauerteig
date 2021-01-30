@@ -1,3 +1,4 @@
+#include "configuration.h"
 #include "screen_main.h"
 #include "sensors.h"
 #include "heating.h"
@@ -82,7 +83,7 @@ void MainScreen::draw(U8GLIB &u8g)
         }
         u8g.drawStr(12, yOffset + 8, SENSOR_LABELS[sensorId]);
         u8g.setPrintPos(42, yOffset + 8);
-        if (sensorTemp < MIN_SENSOR_TEMP)
+        if (sensorTemp < SENSOR_MINTEMP)
         {
             u8g.print('-');
             continue;

@@ -11,6 +11,19 @@
 #include "fan.h"
 #include "ui.h"
 
+bool check_alarm()
+{
+    if (sensors_any_below(ALARM_TEMP_LOW))
+    {
+        return !ALARM_LOW_ONLY_ON || get_heater_enabled();
+    }
+    if (sensors_any_above(ALARM_TEMP_HIGH))
+    {
+        return true;
+    }
+    return false;
+}
+
 void setup()
 {
     // allow for voltage stabilisation
@@ -51,7 +64,7 @@ void loop()
     // polling and safety check
     sensors_update();
     static bool alarm = false;
-    if (sensors_any_below(MIN_SENSOR_TEMP) || sensors_any_above(ALARM_TEMP))
+    if (check_alarm())
     {
         buzzer_toggle(true);
         alarm = true;
